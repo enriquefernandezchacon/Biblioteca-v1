@@ -106,7 +106,7 @@ public class Prestamos {
 		List<Prestamo> prestamosMensuales = get(fecha);
 		for (Prestamo prestamo : prestamosMensuales) {
 			Curso cursoAlumno = prestamo.getAlumno().getCurso();
-			estadisticasMensualesPorCurso.put(cursoAlumno, estadisticasMensualesPorCurso);
+			estadisticasMensualesPorCurso.put(cursoAlumno, prestamosMensuales.size());
 		}
 		return estadisticasMensualesPorCurso;
 	}
