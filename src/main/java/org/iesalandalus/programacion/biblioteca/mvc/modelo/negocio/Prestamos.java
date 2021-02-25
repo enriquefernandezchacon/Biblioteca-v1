@@ -4,10 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -75,7 +73,7 @@ public class Prestamos {
 		List<Prestamo> copiaPrestamos = new ArrayList<>();
 		for (Prestamo prestamo : coleccionPrestamos) {
 			if (prestamo.getLibro().equals(libro)) {
-				copiaPrestamos.add(prestamo);
+				copiaPrestamos.add(new Prestamo(prestamo));
 			}
 		}
 		copiaPrestamos.sort(comparadorPrestamo);
@@ -94,7 +92,7 @@ public class Prestamos {
 		List<Prestamo> copiaPrestamos = new ArrayList<>();
 		for (Prestamo prestamo : coleccionPrestamos) {
 			if (mismoMes(fecha, prestamo.getFechaPrestamo())) {
-				copiaPrestamos.add(prestamo);
+				copiaPrestamos.add(new Prestamo(prestamo));
 			}
 		}
 		copiaPrestamos.sort(comparadorPrestamo);
@@ -106,7 +104,7 @@ public class Prestamos {
 		List<Prestamo> prestamosMensuales = get(fecha);
 		for (Prestamo prestamo : prestamosMensuales) {
 			Curso cursoAlumno = prestamo.getAlumno().getCurso();
-			estadisticasMensualesPorCurso.put(cursoAlumno, prestamosMensuales.size());
+			estadisticasMensualesPorCurso.put(cursoAlumno, estadisticasMensualesPorCurso.get(cursoAlumno) + Math.round(prestamo.getPuntos()));
 		}
 		return estadisticasMensualesPorCurso;
 	}
@@ -137,7 +135,7 @@ public class Prestamos {
 		}
 		int indice = coleccionPrestamos.indexOf(prestamo);
 		if (indice == -1) {
-			coleccionPrestamos.add(prestamo);
+			coleccionPrestamos.add(new Prestamo(prestamo));
 		} else {
 			throw new OperationNotSupportedException("ERROR: Ya existe un préstamo igual.");
 		}
